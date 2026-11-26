@@ -253,8 +253,18 @@ function sentences(t: string) {
   return t.split(/(?<=[.?!])\s+/).filter(Boolean);
 }
 
-/** 버튼을 누를 때마다 순환: 1 → 1.2 → 1.5 → 2 → 0.8 → 1 */
-const RATES = [1, 1.2, 1.5, 2, 0.8];
+/** 버튼을 누를 때마다 순환: 1 → 1.2 → 1.4 → 0.8 → 1 */
+const RATES = [1, 1.2, 1.4, 0.8];
+const RATE_KEY = "docent-rate";
+
+function loadRate() {
+  try {
+    const v = Number(localStorage.getItem(RATE_KEY));
+    return RATES.includes(v) ? v : 1;
+  } catch {
+    return 1;
+  }
+}
 
 function pickKoreanVoice(voices: SpeechSynthesisVoice[]) {
   const ko = voices.filter((v) => v.lang.toLowerCase().startsWith("ko"));
@@ -274,6 +284,7 @@ function DocentBlock({ w }: { w: Work }) {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
     const synth = window.speechSynthesis;
     setCanSpeak(true);
+    setRate(loadRate()); // 작품을 넘겨도 마지막으로 고른 배속 유지
     const load = () => (voiceRef.current = pickKoreanVoice(synth.getVoices()));
     load();
     synth.addEventListener?.("voiceschanged", load);
@@ -333,6 +344,9 @@ function DocentBlock({ w }: { w: Work }) {
   const cycleRate = () => {
     const next = RATES[(RATES.indexOf(rate) + 1) % RATES.length];
     setRate(next);
+    try {
+      localStorage.setItem(RATE_KEY, String(next));
+    } catch {}
     if (speaking) play(next);
   };
 
