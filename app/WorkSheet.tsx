@@ -253,7 +253,8 @@ function sentences(t: string) {
   return t.split(/(?<=[.?!])\s+/).filter(Boolean);
 }
 
-const RATES = [1, 1.2, 0.85];
+/** 버튼을 누를 때마다 순환: 1 → 1.2 → 1.5 → 2 → 0.8 → 1 */
+const RATES = [1, 1.2, 1.5, 2, 0.8];
 
 function pickKoreanVoice(voices: SpeechSynthesisVoice[]) {
   const ko = voices.filter((v) => v.lang.toLowerCase().startsWith("ko"));
