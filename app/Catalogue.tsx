@@ -62,41 +62,63 @@ export default function Catalogue({ images }: { images: Record<string, string> }
     <>
       {/* ───────── HERO ───────── */}
       <header className="hero">
+        {/* 포스터처럼: 흰 띠에는 영문 부제와 검은 ‘T’, 그 아래 그림 위로 ‘URNER’가 흰 글자로 이어짐 */}
         <div className="hero-band">
+          <span className="hero-turner ink" aria-hidden>
+            TURNER
+          </span>
           <p className="hero-kicker">{exhibition.titleEn}</p>
-          <div className="hero-date" aria-label="2026년 10월 24일 토요일부터 2027년 2월 21일 일요일까지">
-            <span className="d">
-              <span className="yr">2026.</span>
-              <b>10.24</b>
-              <i>[토]</i>
-            </span>
-            <span className="dash" aria-hidden />
-            <span className="d">
-              <span className="yr">2027.</span>
-              <b>2.21</b>
-              <i>[일]</i>
-            </span>
-          </div>
-          <p className="hero-venue">
-            <b>{exhibition.venueKo}</b>
-            <span className="hero-venue-sub">
-              <span lang="ja">{exhibition.venueJa}</span> · 도쿄 우에노 공원
-            </span>
-          </p>
         </div>
 
         <div className="hero-canvas">
           <img className="hero-img" src="/works/072-n00546.jpg" alt="" aria-hidden />
-          <span className="hero-turner" aria-hidden>
+          <span className="hero-turner light" aria-hidden>
             TURNER
           </span>
+
+          <div className="hero-info">
+            <div className="hero-date" aria-label="2026년 10월 24일 토요일부터 2027년 2월 21일 일요일까지">
+              <span className="d">
+                <span className="yr">2026.</span>
+                <b>10.24</b>
+                <i>[토]</i>
+              </span>
+              <span className="d-end">
+                <span className="dash" aria-hidden />
+                <span className="d">
+                  <span className="yr">2027.</span>
+                  <b>2.21</b>
+                  <i>[일]</i>
+                </span>
+              </span>
+            </div>
+            <p className="hero-venue">
+              <span className="hv-name">
+                <b>{exhibition.venueKo}</b>
+                <span className="hv-en">{exhibition.venueEn}</span>
+              </span>
+              <span className="hv-box">
+                <span>도쿄</span>
+                <span>우에노 공원</span>
+              </span>
+            </p>
+          </div>
+
           <div className="hero-titles">
-            <p className="hero-pre">{exhibition.prefixKo}</p>
-            <h1 className="hero-title">{exhibition.titleKo}</h1>
-            <p className="hero-sub">
-              <span className="rule" aria-hidden />
-              <span>숭고의 회화,</span>
-              <span>현대미술과의 대화</span>
+            <div className="ht-main">
+              <p className="hero-pre">{exhibition.prefixKo}</p>
+              <h1 className="hero-title">
+                <span className="sr">테이트 미술관 </span>
+                {exhibition.titleKo}
+                <span className="sr"> — 숭고의 회화, 현대미술과의 대화</span>
+              </h1>
+            </div>
+            <p className="hero-sub" aria-hidden>
+              <span className="l1">
+                <i className="rule" />
+                <span>숭고의 회화</span>
+              </span>
+              <span className="l2">현대미술과의 대화</span>
             </p>
           </div>
           <p className="hero-cap">
